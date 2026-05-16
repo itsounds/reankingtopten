@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Poznań",
+    "slug": "poznan",
+    "region": "Wielkopolskie"
+  },
+  {
+    "name": "Warszawa",
+    "slug": "warszawa",
+    "region": "Mazowieckie"
+  },
+  {
+    "name": "Wrocław",
+    "slug": "wroclaw",
+    "region": "Dolnośląskie"
+  },
+  {
+    "name": "Kraków",
+    "slug": "krakow",
+    "region": "Małopolskie"
+  }
+]

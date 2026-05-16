@@ -1,0 +1,94 @@
+Pizza
+Sushi
+Burgery
+Kebab
+Restauracja włoska
+Restauracja azjatycka
+Restauracja polska
+Restauracja wegańska
+Restauracja wegetariańska
+Fast food
+Kawiarnia
+Cukiernia
+Lodziarnia
+Śniadania
+Bistro
+Ramen
+Steki
+Pierogarnia
+Naleśnikarnia
+Piekarnia
+Pączki
+Pub
+Fryzjer damski
+Fryzjer męski
+Barber
+Kosmetyczka
+Salon kosmetyczny
+Paznokci
+Rzęsy
+Brwi
+Medycyna estetyczna
+Masaż
+SPA
+Solarium
+Tatuaże
+Piercing
+Warsztat samochodowy
+Mechanik samochodowy
+Wulkanizacja
+Myjnia
+Auto detailing
+Stacja kontroli pojazdów
+Lakiernik
+Blacharz
+Serwis klimatyzacji
+Serwis opon
+Siłownia
+Fitness
+Trener personalny
+Fizjoterapia
+Rehabilitacja
+Dietetyk
+Joga
+Pilates
+Crossfit
+Szkoła tańca
+Sklepy zoologiczny
+Weterynarz
+Sklepy rowerowy
+Sklep sportowy
+Sklep z odzieżą
+Sklep obuwniczy
+Sklepy elektroniczny
+Sklepy komputerowy
+Sklep meblowy
+Sklep budowlany
+Sklepy ogrodniczy
+Kwiaciarnia
+Sklep muzyczny
+Sklep narciarski
+Hydraulik
+Elektryk
+Firma sprzątająca
+Pralnia
+Usługi remontowe
+Stolarz
+Ślusarz
+Klimatyzacja
+Szkoła językowa
+Szkoła muzyczna
+Nauka jazdy
+Księgowość
+Biuro rachunkowe
+Doradztwo podatkowe
+Adwokat
+Radca prawny
+Notariusz
+Przeprowadzki
+Wypożyczalnia samochodów
+Hotel
+Fotograf
+Drukarnia
+Jubiler
+Optyk

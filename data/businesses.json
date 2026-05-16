@@ -1,0 +1,123 @@
+[
+  {
+    "slug": "mori-mori-poznan",
+    "name": "Mori Mori Poznań",
+    "citySlug": "poznan",
+    "categorySlug": "restauracje-azjatyckie",
+    "address": "ul. Ratajczaka 21, Poznań",
+    "district": "Centrum",
+    "badge": "Wyróżniony lokal",
+    "summary": "Nowoczesna restauracja azjatycka z dopracowaną obsługą i spójnym doświadczeniem na miejscu.",
+    "position": 4
+  },
+  {
+    "slug": "yatta-ramen-poznan",
+    "name": "Yatta Ramen House",
+    "citySlug": "poznan",
+    "categorySlug": "restauracje-azjatyckie",
+    "address": "ul. Wrocławska 18, Poznań",
+    "district": "Stare Miasto",
+    "badge": "Top 3",
+    "summary": "Lokal ceniony za konsekwentną jakość i bardzo dobrą widoczność w kategorii.",
+    "position": 1
+  },
+  {
+    "slug": "tokyo-bistro-poznan",
+    "name": "Tokyo Bistro",
+    "citySlug": "poznan",
+    "categorySlug": "restauracje-azjatyckie",
+    "address": "ul. Półwiejska 42, Poznań",
+    "district": "Centrum",
+    "badge": "Silna widoczność",
+    "summary": "Popularny lokal z rozpoznawalną marką i wysoką aktywnością klientów.",
+    "position": 2
+  },
+  {
+    "slug": "noodle-garden-poznan",
+    "name": "Noodle Garden",
+    "citySlug": "poznan",
+    "categorySlug": "restauracje-azjatyckie",
+    "address": "ul. Taczaka 9, Poznań",
+    "district": "Jeżyce",
+    "badge": "Stabilna pozycja",
+    "summary": "Lokal z dobrym odbiorem i powtarzalnym doświadczeniem klientów.",
+    "position": 3
+  },
+  {
+    "slug": "umami-street-poznan",
+    "name": "Umami Street",
+    "citySlug": "poznan",
+    "categorySlug": "restauracje-azjatyckie",
+    "address": "ul. Kwiatowa 7, Poznań",
+    "district": "Wilda",
+    "badge": "Top 10",
+    "summary": "Mocna rozpoznawalność lokalna i wysoka spójność wizualna lokalu.",
+    "position": 5
+  },
+  {
+    "slug": "dragon-bowl-poznan",
+    "name": "Dragon Bowl",
+    "citySlug": "poznan",
+    "categorySlug": "restauracje-azjatyckie",
+    "address": "ul. Kościuszki 14, Poznań",
+    "district": "Centrum",
+    "badge": "Top 10",
+    "summary": "Lokal z dobrą ekspozycją marki i pozytywnym odbiorem klientów.",
+    "position": 6
+  },
+  {
+    "slug": "miso-craft-poznan",
+    "name": "Miso Craft",
+    "citySlug": "poznan",
+    "categorySlug": "restauracje-azjatyckie",
+    "address": "ul. Szewska 11, Poznań",
+    "district": "Stare Miasto",
+    "badge": "Top 10",
+    "summary": "Nowoczesny koncept z dopracowaną prezentacją oferty na miejscu.",
+    "position": 7
+  },
+  {
+    "slug": "hanami-poznan",
+    "name": "Hanami Kitchen",
+    "citySlug": "poznan",
+    "categorySlug": "restauracje-azjatyckie",
+    "address": "ul. Zwierzyniecka 29, Poznań",
+    "district": "Jeżyce",
+    "badge": "Top 10",
+    "summary": "Lokal wyróżniający się estetyką wnętrza i przyjaznym doświadczeniem gościa.",
+    "position": 8
+  },
+  {
+    "slug": "bao-house-poznan",
+    "name": "Bao House Poznań",
+    "citySlug": "poznan",
+    "categorySlug": "restauracje-azjatyckie",
+    "address": "ul. Młyńska 15, Poznań",
+    "district": "Centrum",
+    "badge": "Top 10",
+    "summary": "Lokal ze stabilną pozycją w swojej kategorii i mieście.",
+    "position": 9
+  },
+  {
+    "slug": "soy-club-poznan",
+    "name": "Soy Club",
+    "citySlug": "poznan",
+    "categorySlug": "restauracje-azjatyckie",
+    "address": "ul. Garbary 53, Poznań",
+    "district": "Stare Miasto",
+    "badge": "Top 10",
+    "summary": "Lokal z dobrą rozpoznawalnością wśród klientów lokalnych.",
+    "position": 10
+  },
+  {
+    "slug": "smile-studio-warszawa",
+    "name": "Smile Studio Warszawa",
+    "citySlug": "warszawa",
+    "categorySlug": "stomatolodzy",
+    "address": "ul. Mokotowska 31, Warszawa",
+    "district": "Śródmieście",
+    "badge": "Wyróżniona placówka",
+    "summary": "Nowoczesny gabinet stomatologiczny z premium doświadczeniem pacjenta.",
+    "position": 2
+  }
+]

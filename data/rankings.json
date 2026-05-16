@@ -1,0 +1,77 @@
+[
+  {
+    "citySlug": "poznan",
+    "categorySlug": "restauracje-azjatyckie",
+    "title": "Top 10 restauracji azjatyckich w Poznaniu",
+    "updatedAt": "12.04.2026",
+    "analyzedCount": 100,
+    "highlightedBusinessSlug": "mori-mori-poznan",
+    "positions": [
+      {
+        "position": 1,
+        "businessSlug": "yatta-ramen-poznan",
+        "label": "Najwyższa pozycja"
+      },
+      {
+        "position": 2,
+        "businessSlug": "tokyo-bistro-poznan",
+        "label": "Wysoka widoczność"
+      },
+      {
+        "position": 3,
+        "businessSlug": "noodle-garden-poznan",
+        "label": "Mocna obecność"
+      },
+      {
+        "position": 4,
+        "businessSlug": "mori-mori-poznan",
+        "label": "Wyróżniony lokal"
+      },
+      {
+        "position": 5,
+        "businessSlug": "umami-street-poznan",
+        "label": "Top 10"
+      },
+      {
+        "position": 6,
+        "businessSlug": "dragon-bowl-poznan",
+        "label": "Top 10"
+      },
+      {
+        "position": 7,
+        "businessSlug": "miso-craft-poznan",
+        "label": "Top 10"
+      },
+      {
+        "position": 8,
+        "businessSlug": "hanami-poznan",
+        "label": "Top 10"
+      },
+      {
+        "position": 9,
+        "businessSlug": "bao-house-poznan",
+        "label": "Top 10"
+      },
+      {
+        "position": 10,
+        "businessSlug": "soy-club-poznan",
+        "label": "Top 10"
+      }
+    ]
+  },
+  {
+    "citySlug": "warszawa",
+    "categorySlug": "stomatolodzy",
+    "title": "Top 10 stomatologów w Warszawie",
+    "updatedAt": "12.04.2026",
+    "analyzedCount": 124,
+    "highlightedBusinessSlug": "smile-studio-warszawa",
+    "positions": [
+      {
+        "position": 2,
+        "businessSlug": "smile-studio-warszawa",
+        "label": "Wyróżniona placówka"
+      }
+    ]
+  }
+]
