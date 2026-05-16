@@ -21,7 +21,7 @@ export function SiteFooter() {
           </div>
         </div>
       </footer>
-      <div aria-hidden="true" className="hidden h-[50vh] md:block" />
+      <div aria-hidden="true" className="hidden h-[100vh] md:block" />
     </>
   );
 }
