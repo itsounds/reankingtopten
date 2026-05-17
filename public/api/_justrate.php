@@ -42,7 +42,11 @@ function ensureJustratePlace(PDO $pdo, array $entry): array
     }
 
     $jid = uniqueJid($pdo);
-    $placeId = googlePlaceId($entry) ?: $cid;
+    $placeId = googlePlaceId($entry);
+
+    if ($placeId === null) {
+        throw new RuntimeException('Could not resolve Google place_id for cid: ' . $cid);
+    }
 
     $statement = $pdo->prepare(
         "INSERT INTO places
@@ -89,24 +93,18 @@ function uniqueJid(PDO $pdo): string
 function googlePlaceId(array $entry): ?string
 {
     $apiKey = appConfigValue('google_places_api_key') ?: getenv('GOOGLE_PLACES_API_KEY');
+    $cid = trim((string) ($entry['cid'] ?? ''));
 
-    if (!$apiKey) {
-        return null;
-    }
-
-    $input = trim((string) ($entry['title'] ?? '') . ' ' . (string) ($entry['address'] ?? ''));
-
-    if ($input === '') {
+    if (!$apiKey || $cid === '') {
         return null;
     }
 
     $query = http_build_query([
-        'input' => $input,
-        'inputtype' => 'textquery',
+        'cid' => $cid,
         'fields' => 'place_id',
         'key' => $apiKey,
     ]);
-    $url = 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?' . $query;
+    $url = 'https://maps.googleapis.com/maps/api/place/details/json?' . $query;
     $response = @file_get_contents($url);
 
     if ($response === false) {
@@ -119,7 +117,7 @@ function googlePlaceId(array $entry): ?string
         return null;
     }
 
-    $placeId = $decoded['candidates'][0]['place_id'] ?? null;
+    $placeId = $decoded['result']['place_id'] ?? null;
 
     return is_string($placeId) && $placeId !== '' ? $placeId : null;
 }
