@@ -5,6 +5,8 @@ import QRCode from "qrcode";
 import { type CSSProperties, useEffect, useRef, useState } from "react";
 
 const stars = Array.from({ length: 5 });
+const CERTIFICATE_SLIDE_MS = 30000;
+const REVIEW_SLIDE_MS = 30000;
 
 type ActiveDemoPlace = {
   entryId: number;
@@ -21,10 +23,45 @@ export function AnimatedCertificateDemo() {
   const activeEntryIdRef = useRef<number | null>(null);
 
   useEffect(() => {
-    const frame = window.requestAnimationFrame(() => setIsPlaying(true));
-    const slideTimeout = window.setTimeout(() => setActiveSlide("review"), 30000);
+    let cancelled = false;
+    let frame = 0;
+    let slideTimeout = 0;
+
+    const startCertificateAnimation = () => {
+      setIsPlaying(false);
+      frame = window.requestAnimationFrame(() => {
+        frame = window.requestAnimationFrame(() => {
+          if (!cancelled) {
+            setIsPlaying(true);
+          }
+        });
+      });
+    };
+
+    const showCertificate = () => {
+      if (cancelled) {
+        return;
+      }
+
+      setActiveSlide("certificate");
+      startCertificateAnimation();
+      slideTimeout = window.setTimeout(showReview, CERTIFICATE_SLIDE_MS);
+    };
+
+    const showReview = () => {
+      if (cancelled) {
+        return;
+      }
+
+      setIsPlaying(false);
+      setActiveSlide("review");
+      slideTimeout = window.setTimeout(showCertificate, REVIEW_SLIDE_MS);
+    };
+
+    showCertificate();
 
     return () => {
+      cancelled = true;
       window.cancelAnimationFrame(frame);
       window.clearTimeout(slideTimeout);
     };

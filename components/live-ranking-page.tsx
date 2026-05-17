@@ -288,6 +288,7 @@ function RankingEntryCard({
             <a
               className="inline-flex items-center justify-center rounded-full bg-[#1A73E8] px-4 py-2 text-sm font-medium text-white transition hover:bg-[#1765cc]"
               href={`tel:${entry.phoneNumber.replace(/\s+/g, "")}`}
+              target="_top"
             >
               Zadzwoń
             </a>

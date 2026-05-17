@@ -137,7 +137,7 @@ export function RankingDetailPage(props: RankingDetailPageProps) {
                     Certyfikat + monitor 15.6&quot; Full HD + mikrokomputer
                   </p>
                   <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                    <ButtonLink href="tel:+48788733337" className="sm:min-w-[172px]">
+                    <ButtonLink href="tel:+48788733337" className="sm:min-w-[172px]" target="_top">
                       Zamów cyfrowy certyfikat
                     </ButtonLink>
                     <ButtonLink
@@ -264,7 +264,9 @@ export function RankingDetailPage(props: RankingDetailPageProps) {
                 ))}
               </div>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <ButtonLink href="tel:+48788733337">Zamów cyfrowy certyfikat</ButtonLink>
+                <ButtonLink href="tel:+48788733337" target="_top">
+                  Zamów cyfrowy certyfikat
+                </ButtonLink>
                 <ButtonLink href="#" variant="secondary">
                   Skontaktuj się
                 </ButtonLink>
@@ -428,7 +430,9 @@ export function RankingDetailPage(props: RankingDetailPageProps) {
               description="Zamów Certyfikat Top 10 i wykorzystaj certyfikat oraz ekran do eleganckiej ekspozycji wyróżnienia w lokalu."
             />
             <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <ButtonLink href="tel:+48788733337">Zamów cyfrowy certyfikat</ButtonLink>
+              <ButtonLink href="tel:+48788733337" target="_top">
+                Zamów cyfrowy certyfikat
+              </ButtonLink>
               <ButtonLink href="#" variant="secondary">
                 Skontaktuj się
               </ButtonLink>
@@ -439,7 +443,7 @@ export function RankingDetailPage(props: RankingDetailPageProps) {
 
       <div className="sticky bottom-4 z-40 px-4 md:hidden">
         <div className="mx-auto max-w-md rounded-full border border-[#DADCE0] bg-white/95 p-2 shadow-[0_24px_60px_rgba(32,33,36,0.14)] backdrop-blur">
-          <ButtonLink className="w-full" href="tel:+48788733337">
+          <ButtonLink className="w-full" href="tel:+48788733337" target="_top">
             Zamów cyfrowy certyfikat
           </ButtonLink>
         </div>

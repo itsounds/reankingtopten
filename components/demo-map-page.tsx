@@ -35,6 +35,7 @@ export function DemoMapPage() {
   const leafletRef = useRef<LeafletModule | null>(null);
   const mapRef = useRef<LeafletMap | null>(null);
   const markersRef = useRef<LeafletMarker[]>([]);
+  const placesRef = useRef<RankedPlace[]>([]);
 
   useEffect(() => {
     const urlToken = new URLSearchParams(window.location.search).get("token") ?? "";
@@ -248,6 +249,7 @@ export function DemoMapPage() {
         return payload.places as RankedPlace[];
       })
       .then((nearbyPlaces) => {
+        placesRef.current = nearbyPlaces;
         setPlaces(nearbyPlaces);
         setStatus("Gotowe.");
         renderMarkers(nearbyPlaces);
@@ -312,12 +314,13 @@ export function DemoMapPage() {
         }
 
         const rateUrl = payload?.active?.rateUrl;
-        const nextPlaces = places.map((entry) =>
+        const nextPlaces = placesRef.current.map((entry) =>
           entry.entryId === place.entryId && typeof rateUrl === "string"
             ? { ...entry, rateUrl }
             : entry,
         );
 
+        placesRef.current = nextPlaces;
         setPlaces(nextPlaces);
         renderMarkers(nextPlaces);
         setStatus(`Aktywne demo: ${place.title}`);

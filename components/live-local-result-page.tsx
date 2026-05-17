@@ -232,7 +232,7 @@ function Shell({ hero, children }: { hero: ReactNode; children?: ReactNode }) {
 
       <div className="sticky bottom-4 z-40 px-4 md:hidden">
         <div className="mx-auto max-w-md rounded-full border border-[#DADCE0] bg-white/95 p-2 shadow-[0_24px_60px_rgba(32,33,36,0.14)] backdrop-blur">
-          <ButtonLink className="w-full" href="tel:+48788733337">
+          <ButtonLink className="w-full" href="tel:+48788733337" target="_top">
             Zamów cyfrowy certyfikat
           </ButtonLink>
         </div>
@@ -340,7 +340,9 @@ function HeroSection({ entry, ranking }: { entry: RankingEntry; ranking: Ranking
                 {entry.category ? <span>{entry.category}</span> : null}
               </div>
               <div className="mt-8">
-                <ButtonLink href="tel:+48788733337">Zamów cyfrowy certyfikat</ButtonLink>
+                <ButtonLink href="tel:+48788733337" target="_top">
+                  Zamów cyfrowy certyfikat
+                </ButtonLink>
               </div>
             </div>
           </div>
@@ -405,7 +407,9 @@ function PackageSection() {
             Dostępne wyłącznie dla lokali obecnych w aktualnym Top 10.
           </p>
           <div className="mt-8">
-            <ButtonLink href="tel:+48788733337">Zamów cyfrowy certyfikat</ButtonLink>
+            <ButtonLink href="tel:+48788733337" target="_top">
+              Zamów cyfrowy certyfikat
+            </ButtonLink>
           </div>
         </div>
         <PackageShowcase />

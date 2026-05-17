@@ -1,13 +1,14 @@
 "use client";
 
 import Link, { type LinkProps } from "next/link";
-import type { ReactNode } from "react";
+import type { AnchorHTMLAttributes, ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
 
 type ButtonLinkProps = LinkProps & {
   children: ReactNode;
   className?: string;
+  target?: AnchorHTMLAttributes<HTMLAnchorElement>["target"];
   variant?: "primary" | "secondary" | "ghost";
 };
 
