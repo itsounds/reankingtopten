@@ -104,3 +104,11 @@ CREATE TABLE IF NOT EXISTS `ranking_entries` (
     FOREIGN KEY (`source_place_id`) REFERENCES `serper_places` (`id`)
     ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `demo_active_place` (
+  `id` TINYINT UNSIGNED NOT NULL DEFAULT 1,
+  `ranking_entry_id` BIGINT UNSIGNED NOT NULL,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_demo_active_place_entry` (`ranking_entry_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
