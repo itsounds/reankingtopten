@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 require __DIR__ . '/_db.php';
 require __DIR__ . '/_demo.php';
+require __DIR__ . '/_justrate.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     jsonResponse(['message' => 'Method not allowed.'], 405);
@@ -20,6 +21,7 @@ if ($entryId <= 0) {
 
 try {
     $pdo = apiPdo();
+    $justratePdo = justratePdo();
     ensureDemoTables($pdo);
 
     $select = $pdo->prepare(
@@ -34,6 +36,9 @@ try {
             re.latitude,
             re.longitude,
             re.category,
+            re.phone_number,
+            re.website,
+            re.cid,
             rr.search_phrase,
             rr.created_at AS ranking_created_at
          FROM ranking_entries re
@@ -49,6 +54,8 @@ try {
         jsonResponse(['message' => 'Ranking entry not found.'], 404);
     }
 
+    $justratePlace = ensureJustratePlace($justratePdo, $entry);
+
     $statement = $pdo->prepare(
         "INSERT INTO demo_active_place (id, ranking_entry_id)
          VALUES (1, :ranking_entry_id)
@@ -59,9 +66,12 @@ try {
     $statement->bindValue('ranking_entry_id', $entryId, PDO::PARAM_INT);
     $statement->execute();
 
-    jsonResponse([
-        'active' => demoPlacePayload($entry),
-    ]);
+    $active = demoPlacePayload($entry);
+    $active['rateUrl'] = $justratePlace['rateUrl'];
+    $active['justrateJid'] = $justratePlace['jid'];
+    $active['justrateCreated'] = $justratePlace['created'];
+
+    jsonResponse(['active' => $active]);
 } catch (Throwable $error) {
     error_log($error->getMessage());
 

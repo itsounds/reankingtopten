@@ -10,6 +10,7 @@ type ActiveDemoPlace = {
   title: string;
   searchPhrase: string;
   rankingCreatedAt: string;
+  rateUrl?: string | null;
 };
 
 export function AnimatedCertificateDemo() {
@@ -73,6 +74,7 @@ export function AnimatedCertificateDemo() {
   const demoDate = activeDemo?.rankingCreatedAt
     ? formatPolishMonthYear(activeDemo.rankingCreatedAt)
     : "Marzec 2026";
+  const demoRateUrl = activeDemo?.rateUrl ?? "https://justrate.it/rate/demo";
 
   return (
     <main
@@ -136,7 +138,7 @@ export function AnimatedCertificateDemo() {
               </div>
 
               <div className="review-qr-block flex flex-col items-center text-center">
-                <QrPlaceholder />
+                <QrPlaceholder value={demoRateUrl} />
                 <p className="mt-[7%] font-['Open_Sans',Arial,sans-serif] text-[clamp(1.45rem,3.4vw,2.85rem)] leading-[1.28] font-normal text-[#a5a5a5]">
                   Zeskanuj kod
                   <br />i oceń nas
@@ -442,7 +444,12 @@ function GoogleGLogo() {
   );
 }
 
-function QrPlaceholder() {
+function QrPlaceholder({ value }: { value: string }) {
+  const seed = hashString(value);
+  const rows = Array.from({ length: 24 }, (_, y) =>
+    Array.from({ length: 24 }, (_, x) => qrCell(seed, x, y)),
+  );
+
   return (
     <svg
       aria-label="Kod QR"
@@ -452,38 +459,47 @@ function QrPlaceholder() {
       shapeRendering="crispEdges"
     >
       <rect width="29" height="29" fill="#fff" />
-      {[
-        "111111100101101111111",
-        "100000101110101000001",
-        "101110100011101011101",
-        "101110101010001011101",
-        "101110101111101011101",
-        "100000100010001000001",
-        "111111101010101111111",
-        "000000001110100000000",
-        "101011111001111010111",
-        "001101000111001110010",
-        "111001111010111001111",
-        "100111001110001011000",
-        "011000101011101110101",
-        "111010111000111001011",
-        "001110001111000111100",
-        "101001111010101000111",
-        "000000001001101011010",
-        "111111101111001010111",
-        "100000101001111010001",
-        "101110101110001011101",
-        "101110100011111001101",
-        "101110101101001111001",
-        "100000101011101000101",
-        "111111101100111101111",
-      ].map((row, y) =>
-        [...row].map((cell, x) =>
-          cell === "1" ? (
+      <FinderPattern x={3} y={3} />
+      <FinderPattern x={19} y={3} />
+      <FinderPattern x={3} y={19} />
+      {rows.map((row, y) =>
+        row.map((cell, x) =>
+          cell && !isFinderArea(x, y) ? (
             <rect key={`${x}-${y}`} x={x + 3} y={y + 3} width="1" height="1" fill="#000" />
           ) : null,
         ),
       )}
     </svg>
   );
+}
+
+function FinderPattern({ x, y }: { x: number; y: number }) {
+  return (
+    <>
+      <rect x={x} y={y} width="7" height="7" fill="#000" />
+      <rect x={x + 1} y={y + 1} width="5" height="5" fill="#fff" />
+      <rect x={x + 2} y={y + 2} width="3" height="3" fill="#000" />
+    </>
+  );
+}
+
+function isFinderArea(x: number, y: number) {
+  return (x < 8 && y < 8) || (x > 15 && y < 8) || (x < 8 && y > 15);
+}
+
+function qrCell(seed: number, x: number, y: number) {
+  const value = (seed + x * 73856093 + y * 19349663 + x * y * 83492791) >>> 0;
+
+  return value % 5 === 0 || value % 7 === 0;
+}
+
+function hashString(value: string) {
+  let hash = 2166136261;
+
+  for (let index = 0; index < value.length; index++) {
+    hash ^= value.charCodeAt(index);
+    hash = Math.imul(hash, 16777619);
+  }
+
+  return hash >>> 0;
 }

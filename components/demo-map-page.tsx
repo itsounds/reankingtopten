@@ -18,6 +18,8 @@ type RankedPlace = {
   rating: number;
   ratingCount: number;
   distanceKm: number;
+  rateUrl: string | null;
+  justrateJid: string | null;
 };
 
 type LeafletModule = typeof import("leaflet");
@@ -142,12 +144,18 @@ export function DemoMapPage() {
   return (
     <main className="relative h-[100dvh] overflow-hidden bg-[#F8F9FA] text-[#202124]">
       <div ref={mapElementRef} className="h-full w-full" />
-      <div className="pointer-events-none absolute top-4 left-4 z-[1000] max-w-sm rounded-[24px] border border-[#DADCE0] bg-white/95 p-4 shadow-[0_18px_44px_rgba(32,33,36,0.16)] backdrop-blur">
-        <h1 className="text-xl font-semibold tracking-[-0.03em]">Mapa demo</h1>
-        <p className="mt-2 text-sm leading-6 text-[#5F6368]">{status}</p>
-        <p className="mt-1 text-sm font-medium text-[#202124]">{visiblePlacesText}</p>
+      <div className="pointer-events-none absolute top-4 left-4 z-[400] rounded-full border border-[#DADCE0] bg-white/95 px-4 py-2 shadow-[0_12px_28px_rgba(32,33,36,0.14)] backdrop-blur">
+        <p className="text-sm font-semibold text-[#202124]">{visiblePlacesText}</p>
       </div>
       <style jsx global>{`
+        .leaflet-popup-pane {
+          z-index: 1200;
+        }
+
+        .leaflet-tooltip-pane {
+          z-index: 1100;
+        }
+
         .demo-map-place-marker {
           display: grid;
           place-items: center;
@@ -204,6 +212,16 @@ export function DemoMapPage() {
           padding: 9px 12px;
           font-weight: 700;
           cursor: pointer;
+        }
+
+        .demo-map-rate-link {
+          display: block;
+          margin-top: 8px;
+          overflow-wrap: anywhere;
+          color: #1a73e8;
+          font-size: 12px;
+          font-weight: 700;
+          text-decoration: none;
         }
       `}</style>
     </main>
@@ -293,6 +311,15 @@ export function DemoMapPage() {
           throw new Error(payload?.message ?? "Nie udało się ustawić demo.");
         }
 
+        const rateUrl = payload?.active?.rateUrl;
+        const nextPlaces = places.map((entry) =>
+          entry.entryId === place.entryId && typeof rateUrl === "string"
+            ? { ...entry, rateUrl }
+            : entry,
+        );
+
+        setPlaces(nextPlaces);
+        renderMarkers(nextPlaces);
         setStatus(`Aktywne demo: ${place.title}`);
       })
       .catch((error: unknown) => {
@@ -304,6 +331,9 @@ export function DemoMapPage() {
 function popupHtml(place: RankedPlace) {
   const address = place.address ? `<p class="demo-map-popup-muted">${escapeHtml(place.address)}</p>` : "";
   const category = place.category ? `<p class="demo-map-popup-muted">${escapeHtml(place.category)}</p>` : "";
+  const rateLink = place.rateUrl
+    ? `<a class="demo-map-rate-link" href="${escapeHtml(place.rateUrl)}" target="_blank" rel="noreferrer">${escapeHtml(place.rateUrl)}</a>`
+    : "";
 
   return `
     <div class="demo-map-popup">
@@ -313,6 +343,7 @@ function popupHtml(place: RankedPlace) {
       <p>#${place.position} w ${escapeHtml(place.searchPhrase)}</p>
       <p>${place.rating.toFixed(1)} • ${place.ratingCount.toLocaleString("pl-PL")} opinii • ${place.distanceKm.toFixed(2)} km</p>
       <button type="button" data-demo-entry-id="${place.entryId}">Ustaw jako demo</button>
+      ${rateLink}
     </div>
   `;
 }

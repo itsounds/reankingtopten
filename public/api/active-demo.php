@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 require __DIR__ . '/_db.php';
 require __DIR__ . '/_demo.php';
+require __DIR__ . '/_justrate.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     jsonResponse(['message' => 'Method not allowed.'], 405);
@@ -11,6 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 
 try {
     $pdo = apiPdo();
+    $justratePdo = justratePdo();
     ensureDemoTables($pdo);
 
     $statement = $pdo->query(
@@ -25,6 +27,7 @@ try {
             re.latitude,
             re.longitude,
             re.category,
+            re.cid,
             rr.search_phrase,
             rr.created_at AS ranking_created_at,
             dap.updated_at AS demo_updated_at
@@ -43,6 +46,9 @@ try {
 
     $payload = demoPlacePayload($entry);
     $payload['demoUpdatedAt'] = $entry['demo_updated_at'];
+    $justratePlace = existingJustratePlace($justratePdo, $payload['cid']);
+    $payload['rateUrl'] = $justratePlace ? justrateRateUrl((string) $justratePlace['jid']) : null;
+    $payload['justrateJid'] = $justratePlace['jid'] ?? null;
 
     jsonResponse(['active' => $payload]);
 } catch (Throwable $error) {

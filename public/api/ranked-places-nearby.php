@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 require __DIR__ . '/_db.php';
 require __DIR__ . '/_demo.php';
+require __DIR__ . '/_justrate.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     jsonResponse(['message' => 'Method not allowed.'], 405);
@@ -25,6 +26,7 @@ if ($radiusKm === false || $radiusKm <= 0) {
 
 try {
     $pdo = apiPdo();
+    $justratePdo = justratePdo();
     $statement = $pdo->query(
         "SELECT
             re.id AS entry_id,
@@ -38,6 +40,9 @@ try {
             re.latitude,
             re.longitude,
             re.category,
+            re.phone_number,
+            re.website,
+            re.cid,
             rr.search_phrase,
             rr.created_at AS ranking_created_at
          FROM ranking_entries re
@@ -68,6 +73,9 @@ try {
 
         $payload = demoPlacePayload($entry);
         $payload['distanceKm'] = round($distanceKm, 3);
+        $justratePlace = existingJustratePlace($justratePdo, $payload['cid']);
+        $payload['rateUrl'] = $justratePlace ? justrateRateUrl((string) $justratePlace['jid']) : null;
+        $payload['justrateJid'] = $justratePlace['jid'] ?? null;
 
         if (!isset($seen[$dedupeKey])) {
             $seen[$dedupeKey] = count($places);

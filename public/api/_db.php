@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 const LOCAL_DB_SOCKET = '/Applications/MAMP/tmp/mysql/mysql.sock';
 const LOCAL_DB_NAME = 'rankingtopten';
+const LOCAL_JUSTRATE_DB_NAME = 'admin_justrateit';
 const LOCAL_DB_USER = 'root';
 const LOCAL_DB_PASS = 'root';
 
@@ -21,21 +22,30 @@ function apiPdo(): PDO
     ]);
 }
 
+function justratePdo(): PDO
+{
+    $config = justrateDbConfig();
+    $dsn = isset($config['socket'])
+        ? sprintf('mysql:unix_socket=%s;dbname=%s;charset=utf8mb4', $config['socket'], $config['name'])
+        : sprintf('mysql:host=%s;dbname=%s;charset=utf8mb4', $config['host'], $config['name']);
+
+    return new PDO($dsn, $config['user'], $config['pass'], [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        PDO::ATTR_EMULATE_PREPARES => false,
+    ]);
+}
+
 function dbConfig(): array
 {
-    $externalConfigPaths = [
-        dirname(__DIR__, 3) . '/db-config.php',
-        dirname(__DIR__, 2) . '/db-config.php',
-    ];
+    $config = externalAppConfig();
 
-    foreach ($externalConfigPaths as $externalConfig) {
-        if (is_file($externalConfig)) {
-            $config = require $externalConfig;
+    if (isset($config['rankingtopten']) && is_array($config['rankingtopten'])) {
+        return $config['rankingtopten'];
+    }
 
-            if (is_array($config)) {
-                return $config;
-            }
-        }
+    if (isset($config['host'], $config['name'], $config['user'], $config['pass'])) {
+        return $config;
     }
 
     $envHost = getenv('RANKINGTOPTEN_DB_HOST') ?: null;
@@ -75,6 +85,83 @@ function dbConfig(): array
     }
 
     throw new RuntimeException('Unknown environment for database configuration.');
+}
+
+function justrateDbConfig(): array
+{
+    $config = externalAppConfig();
+
+    if (isset($config['justrate']) && is_array($config['justrate'])) {
+        return $config['justrate'];
+    }
+
+    $envHost = getenv('JUSTRATE_DB_HOST') ?: null;
+    $envName = getenv('JUSTRATE_DB_NAME') ?: null;
+    $envUser = getenv('JUSTRATE_DB_USER') ?: null;
+    $envPass = getenv('JUSTRATE_DB_PASS') ?: null;
+
+    if ($envHost && $envName && $envUser && $envPass) {
+        return [
+            'host' => $envHost,
+            'name' => $envName,
+            'user' => $envUser,
+            'pass' => $envPass,
+        ];
+    }
+
+    $host = strtolower((string) ($_SERVER['HTTP_HOST'] ?? ''));
+    $isLocal = $host === ''
+        || str_contains($host, '.local')
+        || str_contains($host, 'localhost')
+        || str_contains($host, '127.0.0.1');
+
+    if ($isLocal) {
+        return [
+            'socket' => LOCAL_DB_SOCKET,
+            'name' => LOCAL_JUSTRATE_DB_NAME,
+            'user' => LOCAL_DB_USER,
+            'pass' => LOCAL_DB_PASS,
+        ];
+    }
+
+    throw new RuntimeException(
+        'Missing JustRate DB config. Add a justrate section to db-config.php or set JUSTRATE_DB_* env vars.'
+    );
+}
+
+function appConfigValue(string $key, ?string $default = null): ?string
+{
+    $config = externalAppConfig();
+    $value = $config[$key] ?? getenv(strtoupper($key));
+
+    return is_string($value) && $value !== '' ? $value : $default;
+}
+
+function externalAppConfig(): array
+{
+    static $config = null;
+
+    if ($config !== null) {
+        return $config;
+    }
+
+    $externalConfigPaths = [
+        dirname(__DIR__, 3) . '/db-config.php',
+        dirname(__DIR__, 2) . '/db-config.php',
+    ];
+
+    foreach ($externalConfigPaths as $externalConfig) {
+        if (is_file($externalConfig)) {
+            $loadedConfig = require $externalConfig;
+            $config = is_array($loadedConfig) ? $loadedConfig : [];
+
+            return $config;
+        }
+    }
+
+    $config = [];
+
+    return $config;
 }
 
 function jsonResponse(array $payload, int $status = 200): never

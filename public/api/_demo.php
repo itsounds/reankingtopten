@@ -38,6 +38,7 @@ function demoPlacePayload(array $entry): array
         'rankingRunId' => (int) $entry['ranking_run_id'],
         'title' => $entry['title'],
         'address' => $entry['address'],
+        'cid' => $entry['cid'] ?? null,
         'latitude' => $entry['latitude'] !== null ? (float) $entry['latitude'] : null,
         'longitude' => $entry['longitude'] !== null ? (float) $entry['longitude'] : null,
         'category' => $entry['category'],
