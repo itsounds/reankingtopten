@@ -78,6 +78,23 @@ function ensureJustratePlace(PDO $pdo, array $entry): array
     ];
 }
 
+function syncDemoPlaceStand(PDO $pdo, int $placeId): void
+{
+    if ($placeId <= 0) {
+        throw new RuntimeException('Missing JustRate place id for demo stand.');
+    }
+
+    $statement = $pdo->prepare(
+        "INSERT INTO place_stand (place_id, stand_hash)
+         VALUES (:place_id, 'demo')
+         ON DUPLICATE KEY UPDATE
+            place_id = VALUES(place_id),
+            updated_at = CURRENT_TIMESTAMP"
+    );
+    $statement->bindValue('place_id', $placeId, PDO::PARAM_INT);
+    $statement->execute();
+}
+
 function uniqueJid(PDO $pdo): string
 {
     do {

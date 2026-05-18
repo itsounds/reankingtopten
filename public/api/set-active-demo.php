@@ -55,6 +55,7 @@ try {
     }
 
     $justratePlace = ensureJustratePlace($justratePdo, $entry);
+    syncDemoPlaceStand($justratePdo, (int) $justratePlace['id']);
 
     $statement = $pdo->prepare(
         "INSERT INTO demo_active_place (id, ranking_entry_id)
