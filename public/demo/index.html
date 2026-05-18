@@ -1,0 +1,577 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="robots" content="noindex" />
+    <title>Demo certyfikatu - Ranking Top 10</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
+    <style>
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+        background: #f4f2ef;
+        color: #080808;
+      }
+
+      body {
+        font-family: "Open Sans", Arial, sans-serif;
+      }
+
+      .demo-root {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        background-image: url("/images/cert-bgr.png");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+
+      .slide {
+        position: absolute;
+        inset: 0;
+      }
+
+      .certificate-slide {
+        display: flex;
+        box-sizing: border-box;
+        flex-direction: column;
+        align-items: center;
+        padding: 4.6vh 6vw 4.2vh;
+        text-align: center;
+        opacity: 1;
+        transform: scale(1);
+        transition: opacity 900ms ease, transform 900ms ease;
+      }
+
+      .review-slide {
+        display: flex;
+        box-sizing: border-box;
+        align-items: center;
+        justify-content: center;
+        padding: 7vh 9vw;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(20px) scale(1.015);
+      }
+
+      .is-review .certificate-slide {
+        opacity: 0;
+        pointer-events: none;
+        transform: scale(0.985);
+      }
+
+      .is-review .review-slide {
+        animation: review-slide-in 900ms cubic-bezier(0.22, 1, 0.36, 1) 220ms forwards;
+        pointer-events: auto;
+      }
+
+      .certificate-title-mask {
+        overflow: hidden;
+        clip-path: inset(0 100% 0 0);
+      }
+
+      .certificate-title {
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(1.9rem, 5vw, 4.1rem);
+        font-weight: 400;
+        line-height: 1;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        transform: translateX(-10%);
+      }
+
+      .stars {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2.2vw;
+        margin-top: 4.2vh;
+        color: #fbbc05;
+      }
+
+      .star {
+        width: clamp(1.4rem, 3.2vw, 2.65rem);
+        height: clamp(1.4rem, 3.2vw, 2.65rem);
+        opacity: 0;
+        transform: translateY(14px) scale(0.35) rotate(-18deg);
+      }
+
+      .certificate-flip {
+        margin: 4.4vh 0 0;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(1.1rem, 3vw, 2.15rem);
+        line-height: 1;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        opacity: 0;
+        transform: translateX(-28%) rotateY(-86deg);
+        transform-origin: left center;
+      }
+
+      .certificate-blur {
+        margin: 3.4vh 0 0;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(0.9rem, 1.8vw, 1.45rem);
+        font-weight: 700;
+        line-height: 1;
+        letter-spacing: 0.12em;
+        opacity: 0;
+        filter: blur(12px);
+        transform: translateY(8px);
+      }
+
+      .certificate-strong {
+        max-width: 82vw;
+        margin: 3.4vh 0 0;
+        font-family: "Brush Script MT", "Segoe Print", cursive;
+        font-size: clamp(1.7rem, 4.8vw, 4rem);
+        line-height: 1.12;
+        opacity: 0;
+        filter: blur(2px);
+        transform: translateY(26px) scale(0.72);
+      }
+
+      .certificate-details {
+        display: grid;
+        grid-template-columns: auto auto;
+        gap: 0.45rem 2rem;
+        margin: 2.7vh 0 0;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(0.85rem, 1.9vw, 1.45rem);
+        font-weight: 700;
+        line-height: 1.2;
+        letter-spacing: 0.08em;
+        text-align: left;
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      .certificate-details dt,
+      .certificate-details dd {
+        margin: 0;
+      }
+
+      .is-playing .certificate-title-mask {
+        animation: certificate-reveal-left 900ms cubic-bezier(0.22, 1, 0.36, 1) 180ms forwards;
+      }
+
+      .is-playing .certificate-title {
+        animation: certificate-title-drift 900ms cubic-bezier(0.22, 1, 0.36, 1) 180ms forwards;
+      }
+
+      .is-playing .star {
+        animation: certificate-star-series 560ms cubic-bezier(0.18, 1.35, 0.32, 1) forwards;
+      }
+
+      .is-playing .star-1 {
+        animation-delay: 980ms;
+      }
+
+      .is-playing .star-2 {
+        animation-delay: 1052ms;
+      }
+
+      .is-playing .star-3 {
+        animation-delay: 1124ms;
+      }
+
+      .is-playing .star-4 {
+        animation-delay: 1196ms;
+      }
+
+      .is-playing .star-5 {
+        animation-delay: 1268ms;
+      }
+
+      .is-playing .certificate-flip {
+        animation: certificate-left-flip 820ms cubic-bezier(0.2, 0.9, 0.24, 1) 1500ms forwards;
+      }
+
+      .is-playing .certificate-blur {
+        animation: certificate-blur-in 620ms ease-out 2320ms forwards;
+      }
+
+      .is-playing .certificate-strong {
+        animation: certificate-strong-enter 700ms cubic-bezier(0.17, 1.5, 0.36, 1) 2900ms forwards;
+      }
+
+      .is-playing .certificate-details {
+        animation: certificate-fade-in 620ms ease-out 3680ms forwards;
+      }
+
+      .review-grid {
+        display: grid;
+        width: 100%;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 8vw;
+      }
+
+      .review-google-block,
+      .review-qr-block {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        opacity: 0;
+      }
+
+      .is-review .review-google-block {
+        animation: review-fade-in 720ms ease-out 560ms forwards;
+      }
+
+      .is-review .review-qr-block {
+        animation: review-fade-in 720ms ease-out 920ms forwards;
+      }
+
+      .google-logo {
+        width: clamp(7rem, 19vw, 15.5rem);
+        height: auto;
+      }
+
+      .google-copy {
+        margin: 9% 0 0;
+        color: #5f6368;
+        font-family: "Open Sans", Arial, sans-serif;
+        font-size: clamp(1.6rem, 4.1vw, 3.35rem);
+        font-weight: 400;
+        line-height: 1.18;
+        letter-spacing: -0.055em;
+      }
+
+      .google-copy span {
+        font-size: 1.24em;
+        letter-spacing: -0.065em;
+      }
+
+      .qr-box {
+        width: clamp(8rem, 22vw, 17.5rem);
+        min-height: clamp(8rem, 22vw, 17.5rem);
+        background: #fff;
+      }
+
+      .qr-box canvas,
+      .qr-box img {
+        display: block;
+        width: 100% !important;
+        height: auto !important;
+      }
+
+      .review-copy {
+        margin: 7% 0 0;
+        color: #a5a5a5;
+        font-family: "Open Sans", Arial, sans-serif;
+        font-size: clamp(1.45rem, 3.4vw, 2.85rem);
+        font-weight: 400;
+        line-height: 1.28;
+      }
+
+      @keyframes certificate-reveal-left {
+        from {
+          clip-path: inset(0 100% 0 0);
+        }
+        to {
+          clip-path: inset(0 0 0 0);
+        }
+      }
+
+      @keyframes certificate-title-drift {
+        from {
+          transform: translateX(-10%);
+        }
+        to {
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes certificate-star-series {
+        0% {
+          opacity: 0;
+          transform: translateY(14px) scale(0.35) rotate(-18deg);
+        }
+        62% {
+          opacity: 1;
+          transform: translateY(-4px) scale(1.2) rotate(7deg);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0) scale(1) rotate(0);
+        }
+      }
+
+      @keyframes certificate-left-flip {
+        0% {
+          opacity: 0;
+          transform: translateX(-28%) rotateY(-86deg);
+        }
+        64% {
+          opacity: 1;
+          transform: translateX(2%) rotateY(8deg);
+        }
+        100% {
+          opacity: 1;
+          transform: translateX(0) rotateY(0deg);
+        }
+      }
+
+      @keyframes certificate-blur-in {
+        from {
+          opacity: 0;
+          filter: blur(12px);
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          filter: blur(0);
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes certificate-strong-enter {
+        0% {
+          opacity: 0;
+          filter: blur(2px);
+          transform: translateY(26px) scale(0.72);
+        }
+        58% {
+          opacity: 1;
+          filter: blur(0);
+          transform: translateY(-3px) scale(1.08);
+        }
+        100% {
+          opacity: 1;
+          filter: blur(0);
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      @keyframes certificate-fade-in {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes review-slide-in {
+        from {
+          opacity: 0;
+          transform: translateY(20px) scale(1.015);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      @keyframes review-fade-in {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main id="demoRoot" class="demo-root">
+      <section class="slide certificate-slide">
+        <div class="certificate-title-mask">
+          <h1 class="certificate-title">Certyfikat Top 10</h1>
+        </div>
+
+        <div class="stars" aria-hidden="true">
+          <svg class="star star-1" viewBox="0 0 24 24"><path fill="currentColor" d="m12 2 2.94 6.33 6.93.84-5.12 4.73 1.36 6.85L12 17.32l-6.11 3.43 1.36-6.85-5.12-4.73 6.93-.84L12 2z"/></svg>
+          <svg class="star star-2" viewBox="0 0 24 24"><path fill="currentColor" d="m12 2 2.94 6.33 6.93.84-5.12 4.73 1.36 6.85L12 17.32l-6.11 3.43 1.36-6.85-5.12-4.73 6.93-.84L12 2z"/></svg>
+          <svg class="star star-3" viewBox="0 0 24 24"><path fill="currentColor" d="m12 2 2.94 6.33 6.93.84-5.12 4.73 1.36 6.85L12 17.32l-6.11 3.43 1.36-6.85-5.12-4.73 6.93-.84L12 2z"/></svg>
+          <svg class="star star-4" viewBox="0 0 24 24"><path fill="currentColor" d="m12 2 2.94 6.33 6.93.84-5.12 4.73 1.36 6.85L12 17.32l-6.11 3.43 1.36-6.85-5.12-4.73 6.93-.84L12 2z"/></svg>
+          <svg class="star star-5" viewBox="0 0 24 24"><path fill="currentColor" d="m12 2 2.94 6.33 6.93.84-5.12 4.73 1.36 6.85L12 17.32l-6.11 3.43 1.36-6.85-5.12-4.73 6.93-.84L12 2z"/></svg>
+        </div>
+
+        <p class="certificate-flip">Najwyżej ocenianych lokali</p>
+        <p class="certificate-blur">przyznany dla:</p>
+        <p id="demoTitle" class="certificate-strong">Pizzeria Sicilia Marco Giuliano</p>
+
+        <dl class="certificate-details">
+          <dt>Kategoria:</dt>
+          <dd id="demoCategory">Najlepsza Restauracja</dd>
+          <dt>Miasto:</dt>
+          <dd>Poznań</dd>
+          <dt>Data:</dt>
+          <dd id="demoDate">Marzec 2026</dd>
+        </dl>
+      </section>
+
+      <section class="slide review-slide">
+        <div class="review-grid">
+          <div class="review-google-block">
+            <svg class="google-logo" aria-label="Google" viewBox="0 0 24 24" role="img">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+            </svg>
+            <p class="google-copy">oceń nas<br /><span>na Google</span></p>
+          </div>
+
+          <div class="review-qr-block">
+            <div id="qrBox" class="qr-box" aria-label="Kod QR"></div>
+            <p class="review-copy">Zeskanuj kod<br />i oceń nas</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      (function () {
+        var CERTIFICATE_SLIDE_MS = 30000;
+        var REVIEW_SLIDE_MS = 30000;
+        var POLL_MS = 3000;
+        var fallback = {
+          title: "Pizzeria Sicilia Marco Giuliano",
+          searchPhrase: "Najlepsza Restauracja",
+          rankingCreatedAt: "2026-03-01T00:00:00Z",
+          rateUrl: "https://justrate.it/rate/demo",
+          entryId: null
+        };
+
+        var root = document.getElementById("demoRoot");
+        var titleNode = document.getElementById("demoTitle");
+        var categoryNode = document.getElementById("demoCategory");
+        var dateNode = document.getElementById("demoDate");
+        var qrBox = document.getElementById("qrBox");
+        var activeEntryId = null;
+        var currentRateUrl = "";
+
+        function setText(node, value) {
+          if (node) {
+            node.textContent = value;
+          }
+        }
+
+        function formatPolishMonthYear(value) {
+          var date = new Date(value);
+          var months = [
+            "Styczeń",
+            "Luty",
+            "Marzec",
+            "Kwiecień",
+            "Maj",
+            "Czerwiec",
+            "Lipiec",
+            "Sierpień",
+            "Wrzesień",
+            "Październik",
+            "Listopad",
+            "Grudzień"
+          ];
+
+          if (isNaN(date.getTime())) {
+            return "Marzec 2026";
+          }
+
+          return months[date.getMonth()] + " " + date.getFullYear();
+        }
+
+        function renderQr(value) {
+          if (!qrBox || currentRateUrl === value) {
+            return;
+          }
+
+          currentRateUrl = value;
+          qrBox.innerHTML = "";
+
+          if (window.QRCode && QRCode.toCanvas) {
+            QRCode.toCanvas(value, {
+              errorCorrectionLevel: "M",
+              margin: 3,
+              scale: 10,
+              color: {
+                dark: "#000000",
+                light: "#ffffff"
+              }
+            }, function (error, canvas) {
+              if (!error && canvas) {
+                qrBox.innerHTML = "";
+                qrBox.appendChild(canvas);
+              }
+            });
+          } else {
+            qrBox.textContent = value;
+          }
+        }
+
+        function applyDemo(place) {
+          var next = place || fallback;
+          var nextEntryId = typeof next.entryId === "number" ? next.entryId : null;
+
+          if (activeEntryId !== null && nextEntryId !== activeEntryId) {
+            window.location.reload();
+            return;
+          }
+
+          activeEntryId = nextEntryId;
+          setText(titleNode, next.title || fallback.title);
+          setText(categoryNode, next.searchPhrase || fallback.searchPhrase);
+          setText(dateNode, next.rankingCreatedAt ? formatPolishMonthYear(next.rankingCreatedAt) : "Marzec 2026");
+          renderQr(next.rateUrl || fallback.rateUrl);
+        }
+
+        function pollActiveDemo() {
+          var xhr = new XMLHttpRequest();
+          xhr.open("GET", "/api/active-demo.php?_=" + Date.now(), true);
+          xhr.setRequestHeader("Accept", "application/json");
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState !== 4) {
+              return;
+            }
+
+            if (xhr.status >= 200 && xhr.status < 300) {
+              try {
+                var payload = JSON.parse(xhr.responseText);
+                applyDemo(payload && payload.active ? payload.active : null);
+              } catch (error) {
+                applyDemo(null);
+              }
+            }
+          };
+          xhr.send();
+        }
+
+        function startCertificate() {
+          root.className = "demo-root";
+          root.offsetHeight;
+          root.className = "demo-root is-playing";
+          window.setTimeout(startReview, CERTIFICATE_SLIDE_MS);
+        }
+
+        function startReview() {
+          root.className = "demo-root is-review";
+          window.setTimeout(startCertificate, REVIEW_SLIDE_MS);
+        }
+
+        applyDemo(null);
+        pollActiveDemo();
+        window.setInterval(pollActiveDemo, POLL_MS);
+        window.setTimeout(startCertificate, 60);
+      })();
+    </script>
+  </body>
+</html>
