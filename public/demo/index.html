@@ -12,6 +12,14 @@
       rel="stylesheet"
     />
     <style>
+      @font-face {
+        font-family: "Brush Script Local";
+        src: url("/fonts/brush-script.ttf") format("truetype");
+        font-weight: 400;
+        font-style: normal;
+        font-display: block;
+      }
+
       html,
       body {
         width: 100%;
@@ -85,7 +93,7 @@
       .certificate-title {
         margin: 0;
         font-family: Georgia, "Times New Roman", serif;
-        font-size: clamp(1.9rem, 5vw, 4.1rem);
+        font-size: clamp(1.52rem, 4vw, 3.28rem);
         font-weight: 400;
         line-height: 1;
         letter-spacing: 0.28em;
@@ -136,7 +144,8 @@
       .certificate-strong {
         max-width: 82vw;
         margin: 3.4vh 0 0;
-        font-family: "Brush Script MT", "Segoe Print", cursive;
+        padding: 30px 0;
+        font-family: "Brush Script Local", "Brush Script MT", "Segoe Print", cursive;
         font-size: clamp(1.7rem, 4.8vw, 4rem);
         line-height: 1.12;
         opacity: 0;
@@ -148,7 +157,7 @@
         display: grid;
         grid-template-columns: auto auto;
         gap: 0.45rem 2rem;
-        margin: calc(2.7vh + 50px) 0 0;
+        margin: 2.7vh 0 0;
         font-family: Georgia, "Times New Roman", serif;
         font-size: clamp(0.85rem, 1.9vw, 1.45rem);
         font-weight: 700;
