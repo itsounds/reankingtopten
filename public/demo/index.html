@@ -11,7 +11,6 @@
       href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
     <style>
       html,
       body {
@@ -48,7 +47,8 @@
         box-sizing: border-box;
         flex-direction: column;
         align-items: center;
-        padding: 4.6vh 6vw 4.2vh;
+        justify-content: center;
+        padding: 0 6vw;
         text-align: center;
         opacity: 1;
         transform: scale(1);
@@ -148,7 +148,7 @@
         display: grid;
         grid-template-columns: auto auto;
         gap: 0.45rem 2rem;
-        margin: 2.7vh 0 0;
+        margin: calc(2.7vh + 50px) 0 0;
         font-family: Georgia, "Times New Roman", serif;
         font-size: clamp(0.85rem, 1.9vw, 1.45rem);
         font-weight: 700;
@@ -263,7 +263,6 @@
         background: #fff;
       }
 
-      .qr-box canvas,
       .qr-box img {
         display: block;
         width: 100% !important;
@@ -498,24 +497,10 @@
           currentRateUrl = value;
           qrBox.innerHTML = "";
 
-          if (window.QRCode && QRCode.toCanvas) {
-            QRCode.toCanvas(value, {
-              errorCorrectionLevel: "M",
-              margin: 3,
-              scale: 10,
-              color: {
-                dark: "#000000",
-                light: "#ffffff"
-              }
-            }, function (error, canvas) {
-              if (!error && canvas) {
-                qrBox.innerHTML = "";
-                qrBox.appendChild(canvas);
-              }
-            });
-          } else {
-            qrBox.textContent = value;
-          }
+          var img = document.createElement("img");
+          img.alt = "Kod QR: " + value;
+          img.src = "https://api.qrserver.com/v1/create-qr-code/?size=640x640&margin=24&data=" + encodeURIComponent(value);
+          qrBox.appendChild(img);
         }
 
         function applyDemo(place) {
