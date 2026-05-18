@@ -69,7 +69,7 @@ const faqItems = [
   },
   {
     question: "Ile kosztuje zestaw?",
-    answer: "Cena prezentowanego zestawu ekspozycyjnego wynosi 1199 zł netto.",
+    answer: "Cena prezentowanego zestawu ekspozycyjnego wynosi 1499 zł netto.",
   },
   {
     question: "Czy można wykorzystać wyróżnienie w social media?",
@@ -396,7 +396,7 @@ function PackageSection() {
             description="Gotowy zestaw ekspozycyjny, który pozwala pokazać klientom status Top 10 bez żadnej konfiguracji."
           />
           <div className="mt-7 flex items-end gap-2 text-5xl font-semibold tracking-[-0.055em] text-[#202124]">
-            <span>1199 zł</span>
+            <span>1499 zł</span>
             <span className="pb-1 text-base font-medium tracking-normal text-[#5F6368]">netto</span>
           </div>
           <div className="mt-8 grid gap-3">

@@ -38,7 +38,7 @@ const faqItems = [
   },
   {
     question: "Ile kosztuje pakiet?",
-    answer: "Cena prezentowanego pakietu mockupowego wynosi 1199 zł netto.",
+    answer: "Cena prezentowanego pakietu mockupowego wynosi 1499 zł netto.",
   },
   {
     question: "Co obejmuje pakiet?",
@@ -130,7 +130,7 @@ export function RankingDetailPage(props: RankingDetailPageProps) {
                 <div className="rounded-[30px] border border-[#DADCE0] bg-[linear-gradient(180deg,#FFFFFF_0%,#F8F9FA_100%)] p-6 shadow-[0_18px_40px_rgba(32,33,36,0.06)]">
                   <p className="text-sm font-medium text-[#5F6368]">Certyfikat Top 10</p>
                   <div className="mt-3 flex items-end gap-2 text-3xl font-semibold tracking-[-0.04em] text-[#202124]">
-                    <span>1199 zł</span>
+                    <span>1499 zł</span>
                     <span className="pb-0.5 text-sm font-medium tracking-normal text-[#5F6368]">netto</span>
                   </div>
                   <p className="mt-2 text-sm leading-7 text-[#5F6368]">
@@ -248,7 +248,7 @@ export function RankingDetailPage(props: RankingDetailPageProps) {
                 description="Gotowy zestaw do ekspozycji wyróżnienia w lokalu. Pakiet pozwala estetycznie pokazać obecność w Top 10 i wykorzystać ekran do prezentowania własnych materiałów."
               />
               <div className="mt-6 flex items-end gap-2 text-5xl font-semibold tracking-[-0.05em] text-[#202124]">
-                <span>1199 zł</span>
+                <span>1499 zł</span>
                 <span className="pb-1 text-base font-medium tracking-normal text-[#5F6368]">netto</span>
               </div>
               <div className="mt-8 space-y-4">
