@@ -115,7 +115,7 @@ export function PackageShowcase({ className }: VisualProps) {
       )}
     >
       <Image
-        src="/images/cert-display.png"
+        src="/images/cert-display.jpg"
         alt="Cyfrowy certyfikat Top 10 na ekranie"
         width={700}
         height={700}
