@@ -86,7 +86,7 @@ function syncDemoPlaceStand(PDO $pdo, int $placeId): void
 
     $statement = $pdo->prepare(
         "INSERT INTO place_stand (place_id, stand_hash)
-         VALUES (:place_id, 'demo')
+         VALUES (:place_id, 'demodemo')
          ON DUPLICATE KEY UPDATE
             place_id = VALUES(place_id),
             updated_at = CURRENT_TIMESTAMP"
