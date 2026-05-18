@@ -138,46 +138,50 @@ export function LocalResultPage({ slug }: { slug: string }) {
                   <Badge label="Wyróżniony lokal" tone="blue" />
                 </div>
 
-                <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  <HeroStat label="Miejsce" value={`#${business.position}`} />
-                  <HeroStat label="Ocena Google" value={stats.rating} />
-                  <HeroStat label="Opinie" value={stats.reviews} />
-                  <HeroStat label="Kategoria" value={category.name} />
-                  <HeroStat label="Miasto" value={city.name} />
-                  <HeroStat label="Aktualizacja" value={ranking.updatedAt} />
+                <div className="mt-8 rounded-[40px] border border-[#FBBC05]/30 bg-[linear-gradient(135deg,#FFFFFF_0%,#FFF8E1_100%)] p-6 shadow-[0_28px_80px_rgba(251,188,5,0.14)] md:p-8">
+                  <div className="rounded-[32px] bg-white p-6 shadow-[0_18px_46px_rgba(32,33,36,0.08)]">
+                    <div className="flex items-center justify-between gap-4">
+                      <div>
+                        <p className="text-sm font-medium text-[#5F6368]">Pozycja w rankingu</p>
+                        <p className="mt-2 text-7xl font-semibold tracking-[-0.08em] text-[#202124]">
+                          #{business.position}
+                        </p>
+                      </div>
+                      <Trophy className="size-16 text-[#FBBC05]" />
+                    </div>
+                    <h2 className="mt-8 text-3xl font-semibold tracking-[-0.04em] text-[#202124]">
+                      {business.name}
+                    </h2>
+                    <p className="mt-3 flex items-center gap-2 text-sm text-[#5F6368]">
+                      <MapPin className="size-4" />
+                      {business.address}
+                    </p>
+                    <div className="mt-5 flex flex-wrap gap-3 text-sm text-[#5F6368]">
+                      <span className="inline-flex items-center gap-1 font-semibold text-[#202124]">
+                        <Star className="size-4 fill-[#FBBC05] text-[#FBBC05]" />
+                        {stats.rating}
+                      </span>
+                      <span>{stats.reviews}</span>
+                      <span>{business.district}</span>
+                    </div>
+                    <div className="mt-8">
+                      <ButtonLink href="tel:+48788733337" target="_top">
+                        Zamów cyfrowy certyfikat
+                      </ButtonLink>
+                    </div>
+                  </div>
                 </div>
               </div>
 
               <div className="rounded-[40px] border border-[#FBBC05]/30 bg-[linear-gradient(135deg,#FFFFFF_0%,#FFF8E1_100%)] p-6 shadow-[0_28px_80px_rgba(251,188,5,0.14)] md:p-8">
                 <div className="rounded-[32px] bg-white p-6 shadow-[0_18px_46px_rgba(32,33,36,0.08)]">
-                  <div className="flex items-center justify-between gap-4">
-                    <div>
-                      <p className="text-sm font-medium text-[#5F6368]">Pozycja w rankingu</p>
-                      <p className="mt-2 text-7xl font-semibold tracking-[-0.08em] text-[#202124]">
-                        #{business.position}
-                      </p>
-                    </div>
-                    <Trophy className="size-16 text-[#FBBC05]" />
-                  </div>
-                  <h2 className="mt-8 text-3xl font-semibold tracking-[-0.04em] text-[#202124]">
-                    {business.name}
-                  </h2>
-                  <p className="mt-3 flex items-center gap-2 text-sm text-[#5F6368]">
-                    <MapPin className="size-4" />
-                    {business.address}
-                  </p>
-                  <div className="mt-5 flex flex-wrap gap-3 text-sm text-[#5F6368]">
-                    <span className="inline-flex items-center gap-1 font-semibold text-[#202124]">
-                      <Star className="size-4 fill-[#FBBC05] text-[#FBBC05]" />
-                      {stats.rating}
-                    </span>
-                    <span>{stats.reviews}</span>
-                    <span>{business.district}</span>
-                  </div>
-                  <div className="mt-8">
-                    <ButtonLink href="tel:+48788733337" target="_top">
-                      Zamów cyfrowy certyfikat
-                    </ButtonLink>
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <HeroStat label="Miejsce" value={`#${business.position}`} />
+                    <HeroStat label="Ocena Google" value={stats.rating} />
+                    <HeroStat label="Opinie" value={stats.reviews} />
+                    <HeroStat label="Kategoria" value={category.name} />
+                    <HeroStat label="Miasto" value={city.name} />
+                    <HeroStat label="Aktualizacja" value={ranking.updatedAt} />
                   </div>
                 </div>
               </div>
