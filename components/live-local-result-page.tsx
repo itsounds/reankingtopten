@@ -224,7 +224,7 @@ export function LiveLocalResultPage() {
 function Shell({ hero, children }: { hero: ReactNode; children?: ReactNode }) {
   return (
     <div className="embed-page min-h-full bg-white text-[#202124]">
-      <SiteHeader />
+      <SiteHeader ctaHref="/wyszukiwarka#sprawdz-lokal" ctaLabel="Sprawdź lokal" />
       <main>
         {hero}
         {children}
@@ -270,7 +270,7 @@ function ErrorHero({ message }: { message: string }) {
         </h1>
         <p className="mt-5 max-w-2xl text-lg leading-8 text-[#5F6368]">{message}</p>
         <div className="mt-8">
-          <ButtonLink href="/#sprawdz-lokal">Wróć do wyszukiwarki</ButtonLink>
+          <ButtonLink href="/wyszukiwarka#sprawdz-lokal">Wróć do wyszukiwarki</ButtonLink>
         </div>
       </div>
     </section>

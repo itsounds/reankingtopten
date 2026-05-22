@@ -102,7 +102,7 @@ export function RankingDetailPage(props: RankingDetailPageProps) {
 
   return (
     <div className="embed-page min-h-full bg-white text-[#202124]">
-      <SiteHeader />
+      <SiteHeader ctaHref="/wyszukiwarka#sprawdz-lokal" ctaLabel="Sprawdź lokal" />
 
       <main>
         <section className="relative overflow-hidden">
@@ -216,7 +216,7 @@ export function RankingDetailPage(props: RankingDetailPageProps) {
                   <p className="mt-2 text-sm leading-7 text-[#5F6368]">{item.summary}</p>
                 </div>
                 <div className="flex items-center justify-start md:justify-end">
-                  <ButtonLink href={`/business/${item.slug}`} variant="ghost">
+                  <ButtonLink href="/wyszukiwarka#sprawdz-lokal" variant="ghost">
                     Szczegóły lokalu
                   </ButtonLink>
                 </div>

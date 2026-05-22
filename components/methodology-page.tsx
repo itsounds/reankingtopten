@@ -71,7 +71,7 @@ const partnerCards = [
 export function MethodologyPage() {
   return (
     <div className="embed-page min-h-full bg-white text-[#202124]">
-      <SiteHeader />
+      <SiteHeader ctaHref="/wyszukiwarka#sprawdz-lokal" ctaLabel="Sprawdź lokal" />
 
       <main>
         <section className="relative overflow-hidden">
@@ -184,7 +184,7 @@ export function MethodologyPage() {
               description="Sprawdź lokal albo zobacz ranking miasta i kategorii."
             />
             <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <ButtonLink href="/lokal/mori-mori-poznan">Sprawdź lokal</ButtonLink>
+              <ButtonLink href="/wyszukiwarka#sprawdz-lokal">Sprawdź lokal</ButtonLink>
               <ButtonLink href="/poznan/restauracje-azjatyckie" variant="secondary">
                 Zobacz ranking
               </ButtonLink>

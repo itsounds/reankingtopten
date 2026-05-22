@@ -96,7 +96,7 @@ export function LiveRankingPage() {
 
   return (
     <div className="embed-page min-h-full bg-white text-[#202124]">
-      <SiteHeader />
+      <SiteHeader ctaHref="/wyszukiwarka#sprawdz-lokal" ctaLabel="Sprawdź lokal" />
 
       <main>
         <section className="relative overflow-hidden">
@@ -153,7 +153,7 @@ export function LiveRankingPage() {
                   description="Wróć do wyszukiwarki i wpisz nazwę kolejnego lokalu."
                 />
                 <div className="mt-8">
-                  <ButtonLink href="/#sprawdz-lokal">Sprawdź lokal</ButtonLink>
+                  <ButtonLink href="/wyszukiwarka#sprawdz-lokal">Sprawdź lokal</ButtonLink>
                 </div>
               </div>
             </section>
@@ -190,7 +190,7 @@ function ErrorHero({ message }: { message: string }) {
       </h1>
       <p className="mt-6 max-w-3xl text-lg leading-8 text-[#5F6368] md:text-xl">{message}</p>
       <div className="mt-8">
-        <ButtonLink href="/#sprawdz-lokal">Wróć do wyszukiwarki</ButtonLink>
+        <ButtonLink href="/wyszukiwarka#sprawdz-lokal">Wróć do wyszukiwarki</ButtonLink>
       </div>
     </div>
   );

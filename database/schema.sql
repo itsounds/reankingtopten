@@ -112,3 +112,23 @@ CREATE TABLE IF NOT EXISTS `demo_active_place` (
   PRIMARY KEY (`id`),
   KEY `idx_demo_active_place_entry` (`ranking_entry_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `stand_orders` (
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `ranking_entry_id` BIGINT UNSIGNED NOT NULL,
+  `ranking_run_id` BIGINT UNSIGNED NOT NULL,
+  `business_name` VARCHAR(255) NOT NULL,
+  `business_address` VARCHAR(500) DEFAULT NULL,
+  `city` VARCHAR(190) DEFAULT NULL,
+  `category_name` VARCHAR(190) DEFAULT NULL,
+  `contact_name` VARCHAR(255) NOT NULL,
+  `stand_count` TINYINT UNSIGNED NOT NULL,
+  `status` ENUM('new', 'processing', 'completed', 'cancelled') NOT NULL DEFAULT 'new',
+  `source` VARCHAR(64) NOT NULL DEFAULT 'b2b_landing',
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_stand_orders_status` (`status`),
+  KEY `idx_stand_orders_entry` (`ranking_entry_id`),
+  KEY `idx_stand_orders_created_at` (`created_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

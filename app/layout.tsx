@@ -11,9 +11,12 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Ranking Top 10",
+  title: {
+    default: "Ranking Top 10",
+    template: "%s",
+  },
   description:
-    "Frontend-only mockup produktu Ranking Top 10 dla lokalnych biznesów, inspirowany Google-style landing pages.",
+    "Darmowe standy NFC + QR do opinii Google oraz lokalny ranking TOP10 dla lokali.",
 };
 
 export default function RootLayout({

@@ -79,10 +79,18 @@ const faqItems = [
   },
 ];
 
-export function HomePage() {
+type HomePageProps = {
+  headerCtaHref?: string;
+  headerCtaLabel?: string;
+};
+
+export function HomePage({
+  headerCtaHref = "/wyszukiwarka#sprawdz-lokal",
+  headerCtaLabel = "Sprawdź lokal",
+}: HomePageProps) {
   return (
     <div className="embed-page min-h-full bg-white text-[#202124]">
-      <SiteHeader />
+      <SiteHeader ctaHref={headerCtaHref} ctaLabel={headerCtaLabel} logoHref="/wyszukiwarka" />
 
       <main>
         <section className="relative overflow-visible">

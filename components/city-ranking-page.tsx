@@ -52,7 +52,7 @@ export function CityRankingPage({ citySlug, categorySlug }: CityRankingPageProps
 
   return (
     <div className="embed-page min-h-full bg-white text-[#202124]">
-      <SiteHeader />
+      <SiteHeader ctaHref="/wyszukiwarka#sprawdz-lokal" ctaLabel="Sprawdź lokal" />
 
       <main>
         <section className="relative overflow-hidden">
@@ -71,7 +71,7 @@ export function CityRankingPage({ citySlug, categorySlug }: CityRankingPageProps
                 publikacji.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <ButtonLink href="/lokal/mori-mori-poznan">Sprawdź swój lokal</ButtonLink>
+                <ButtonLink href="/wyszukiwarka#sprawdz-lokal">Sprawdź swój lokal</ButtonLink>
                 <ButtonLink href="/metodologia" variant="secondary">
                   Zobacz metodologię
                 </ButtonLink>
@@ -122,7 +122,7 @@ export function CityRankingPage({ citySlug, categorySlug }: CityRankingPageProps
                   {business.name}
                 </h3>
                 <p className="mt-3 text-sm leading-7 text-[#5F6368]">{business.summary}</p>
-                <ButtonLink className="mt-5" href={`/lokal/${business.slug}`} variant="ghost">
+                <ButtonLink className="mt-5" href="/wyszukiwarka#sprawdz-lokal" variant="ghost">
                   Sprawdź wynik lokalu
                   <ArrowRight className="ml-2 size-4" />
                 </ButtonLink>
