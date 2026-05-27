@@ -793,7 +793,7 @@ export function StandyLandingPage() {
           </div>
         </div>
       </footer>
-      <div aria-hidden="true" className="hidden h-[75vh] md:block" />
+      <div aria-hidden="true" className="h-[50vh] md:h-[75vh]" />
     </div>
   );
 }
